@@ -1,0 +1,45 @@
+from django.db import models
+
+# Create your models here.
+
+class Genre(models.Model):
+    tmdb_id = models.IntegerField(unique=True)
+    name = models.CharField(max_length=100)
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+
+class Movie(models.Model):
+    tmdb_id = models.IntegerField(unique=True)
+    title = models.CharField(max_length=100)
+    overview = models.TextField()
+
+    poster_path = models.CharField(max_length=225, blank=True)
+
+    backdrop_path = models.CharField(max_length=255, blank=True)
+
+    release_date = models.DateField(null=True, blank=True)
+    runtime = models.PositiveIntegerField(null=True, blank=True)
+    original_language = models.CharField(max_length=20)
+
+    popularity = models.FloatField(default=0)
+
+    vote_average = models.FloatField(default=0)
+
+    vote_count = models.PositiveIntegerField(default=0)
+
+    genres = models.ManyToManyField(Genre, related_name="movies")
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-popularity"]
+
+    def __str__(self):
+        return self.title

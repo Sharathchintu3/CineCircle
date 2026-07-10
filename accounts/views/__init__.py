@@ -1,0 +1,1 @@
+from .auth_views import home, user_login, user_logout, register
