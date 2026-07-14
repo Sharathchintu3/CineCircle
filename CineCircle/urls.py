@@ -23,7 +23,12 @@ from accounts.views.auth_views import home
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
-    path('accounts/', include('accounts.urls'))
+    path('accounts/', include('accounts.urls')),
+    path("", include("movies.urls")),
+    path('api/', include("CineCircle.api_urls")),
+    path("api/watchlist/", include("watchlist.urls")),
+    path("api/favorites/", include("favorites.urls")),
+    path("api/social/", include("social.urls")),
 ]
 
 if settings.DEBUG:

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from datetime import timedelta
 
 from django.conf.global_settings import STATICFILES_DIRS, MEDIA_URL, MEDIA_ROOT, AUTH_USER_MODEL
 
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'reviews',
     'social',
     'watchlist',
+    'favorites',
     'rest_framework',
 ]
 
@@ -145,3 +147,18 @@ REST_FRAMEWORK = {
 }
 
 TMDB_ACCESS_TOKEN = config("TMDB_ACCESS_TOKEN")
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES" : (
+        "rest_framework.permissions.AllowAny",
+    )
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+}
