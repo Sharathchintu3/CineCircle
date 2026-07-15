@@ -38,6 +38,24 @@ class ReviewLikeAPIView(APIView):
         review.likes.add(request.user)
 
         return Response(
-            {"message":"Review liked successfully."},
+            {"message":"Review liked successfully.",
+             "likes_count":review.likes.count(),
+             "liked":True,},
             status = status.HTTP_200_OK,
+        )
+
+    def delete(self, request, pk):
+        review = generics.get_object_or_404(Review, pk=pk)
+        if not review.likes.filter(id=request.user.id).exists():
+            return Response(
+                {"message":"You have not liked this review."},
+                status = status.HTTP_400_BAD_REQUEST,
+            )
+        review.likes.remove(request.user)
+
+        return Response(
+            {"message":"Review unlike successfully.",
+             "likes_count":review.likes.count(),
+             "liked":False,},
+            status=status.HTTP_200_OK,
         )

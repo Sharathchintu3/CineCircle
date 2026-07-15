@@ -29,6 +29,7 @@ urlpatterns = [
     path("api/watchlist/", include("watchlist.urls")),
     path("api/favorites/", include("favorites.urls")),
     path("api/social/", include("social.urls")),
+    path("api/", include("comments.urls")),
 ]
 
 if settings.DEBUG:

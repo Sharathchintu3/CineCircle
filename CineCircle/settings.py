@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'social',
     'watchlist',
     'favorites',
+    'comments',
     'rest_framework',
 ]
 
